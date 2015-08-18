@@ -122,8 +122,12 @@ func TestComplete(t *testing.T) {
 		t.Errorf("expected no valid DKIM signature; got %s", err)
 	}
 
-	if _, err := ParseAndVerify(justSignature+justSignature, Complete, client); err.Error() != "multiple DKIM headers" {
-		t.Errorf("expected multiple DKIM headers; got %s", err)
+	if _, err := ParseAndVerify(justSignature+justSignature, Complete, client); err.Error() != "no valid DKIM signature" {
+		t.Errorf("expected no valid DKIM signature; got %s", err)
+	}
+
+	if email, err = ParseAndVerify(justSignature+complete, Complete, client); err != nil {
+		t.Errorf("expected success; got %s", err)
 	}
 
 	if _, err := ParseAndVerify("", Complete, client); err.Error() != "no DKIM header found" {

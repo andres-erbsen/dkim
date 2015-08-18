@@ -71,9 +71,9 @@ func ParseAndVerify(mail string, mode VerificationMode, dnsClient DNSClient) (*V
 		// we don't support DKIM-Signature headers signing other DKIM-Signature
 		// headers
 		if isSignatureHeader(header) {
-			if signatureHeader != "" {
-				return nil, errors.New("multiple DKIM headers")
-			}
+			// if signatureHeader != "" {
+			// 	return nil, errors.New("multiple DKIM headers")
+			// }
 			signatureHeader = header
 		}
 	}
